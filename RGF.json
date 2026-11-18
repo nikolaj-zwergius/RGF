@@ -26,14 +26,34 @@
             "CreationDate": {
                 "description": "The date the file was created",
                 "type": "string"
-            }
+            },
+            "linearized":{"type":"boolean","default":false}
         },
-        "required": ["FileType", "FileVersion", "CreationDate"]
+        "required": ["FileType", "FileVersion", "CreationDate","linearized"]
         }
         ,
     "Design":{
         "description": "The main graph data",
-        "type": "object"
+        "type": "object",
+        "properties": {
+            "Strand Graph": {
+                "description": "The  strand graph or the nucleotide design",
+                "type": "array",
+                "items": {"$ref": "#/$defs/node"}
+            },
+            "Motif Graph":{
+                "description": "The Motif graph or the motif design",
+                "type":"array",
+                "items": {"$ref": "#/$defs/motif"}
+            },
+            "State Diffs":{
+                "description": "The different states of the design with the variant element of the graph",
+                "type":"array",
+                "items": {"$ref": "#/$defs/diff_state"}
+            }
+        },
+        "required": ["Strand Graph"],
+        "additionalProperties": false
         },
     "Derived data":{
         "description": "Data that software have derived form the design",
@@ -54,5 +74,48 @@
         "type":"object"
         }
     },
-    "required": ["Metadata", "Design"]
+    "required": ["Metadata", "Design"],
+
+
+
+    "$defs": {
+        "connection":{
+            "type":"object",
+            "properties": {
+                "source_edge":{"enum": ["5p","3p","watson","hoogsteen","sugar","5stack","3stack"],"type":"string"},
+                "target_edge":{"enum":["5p","3p","watson","hoogsteen","sugar","5stack","3stack"],"type":"string"},
+                "connection_type":{"enum": [],"type":"string"},
+                "target_id":{"type":"integer"}
+            },
+            "required": ["source_edge","target_id","target_edge","connection_type"],
+            "additionalProperties": false
+        },
+        "node":{
+            "type":"object",
+            "properties": {
+                "id":{"type":"integer"},
+                "name":{"type":"string"},
+                "connections":{"type":"array","items": {"$ref":"#/$defs/connection"},"minItems": 7}
+            },
+            "required": ["id","name","connections"],
+            "additionalProperties": false
+        },
+        "motif":{
+            "type":"object",
+            "properties": {
+                "id":{"type":"integer"},
+                "name":{"type":"string"},
+                "members":{"type":"array","items": {"$ref": "#/$defs/node"},"minItems": 1},
+                "prev":{"type":"integer"},
+                "next":{"type":"integer"}
+            },
+            "required": ["id","name","members","prev","next"],
+            "additionalProperties": false
+        },
+        "diff_state":{
+            "type":"array",
+            "items": {"$ref": "#/$defs/node"},
+            "minItems": 1
+        }
+    }
 }
