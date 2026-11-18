@@ -1,0 +1,58 @@
+{  
+"$schema": "https://json-schema.org/draft/2020-12/schema",
+"title": "RGF",
+"description": "The RNA Graph Desing format",
+"type": "object",
+"properties": {
+    "Metadata":{
+        "description": "Metadata about the file",
+        "type":"object",
+        "properties": {
+            "FileType": {
+                "description": "The type of the file",
+                "type": "string"
+            },
+            "FileVersion": {
+                "description": "The version of the file format",
+                "type": "string"
+            },
+            "Software": {
+                "description": "The software that generated the file",
+                "type": "string"
+            },
+            "SoftwareVersion": {
+                "description": "The version of the software that generated the file",
+                "type": "string"},
+            "CreationDate": {
+                "description": "The date the file was created",
+                "type": "string"
+            }
+        },
+        "required": ["FileType", "FileVersion", "CreationDate"]
+        }
+        ,
+    "Design":{
+        "description": "The main graph data",
+        "type": "object"
+        },
+    "Derived data":{
+        "description": "Data that software have derived form the design",
+        "type":"object",
+        "properties":{
+            "Sequence": {
+                "description": "The sequence of the design",
+                "type": "string"
+            },
+            "dotBracket": {
+                "description": "The dot bracket notation of the design",
+                "type": "string"
+            }
+        }
+        },
+    "Embeded files":{
+        "description": "File that have been attached to the design for easy of transfere",
+        "type":"object"
+        }
+    },
+    "required": ["Metadata", "Design"]
+}
