@@ -28,16 +28,16 @@
                 "type": "string"
             },
             "CurrentMaxNodeIndex":{"type":"integer","minimum": 0,"default":0},
-            "CurrentMaxMotifIndex":{"type":"integer","minimum": 0,"default":0},
-            "linearized":{"type":"boolean","default":false}
+            "CurrentMaxMotifIndex":{"type":"integer","minimum": 0,"default":0}
         },
-        "required": ["FileType", "FileVersion", "CreationDate","linearized","CurrentMaxNodeIndex","CurrentMaxMotifIndex"]
+        "required": ["FileType", "FileVersion", "CreationDate","CurrentMaxNodeIndex","CurrentMaxMotifIndex"]
         }
         ,
     "Design":{
         "description": "The main graph data",
         "type": "object",
         "properties": {
+            "Chains":{"type":"array","minItems": 1},
             "Strand Graph": {
                 "description": "The  strand graph or the nucleotide design",
                 "type": "array",
