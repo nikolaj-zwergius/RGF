@@ -27,9 +27,11 @@
                 "description": "The date the file was created",
                 "type": "string"
             },
+            "CurrentMaxNodeIndex":{"type":"integer","minimum": 0,"default":0},
+            "CurrentMaxMotifIndex":{"type":"integer","minimum": 0,"default":0},
             "linearized":{"type":"boolean","default":false}
         },
-        "required": ["FileType", "FileVersion", "CreationDate","linearized"]
+        "required": ["FileType", "FileVersion", "CreationDate","linearized","CurrentMaxNodeIndex","CurrentMaxMotifIndex"]
         }
         ,
     "Design":{
@@ -82,22 +84,36 @@
         "connection":{
             "type":"object",
             "properties": {
-                "source_edge":{"enum": ["5p","3p","watson","hoogsteen","sugar","5stack","3stack"],"type":"string"},
-                "target_edge":{"enum":["5p","3p","watson","hoogsteen","sugar","5stack","3stack"],"type":"string"},
-                "connection_type":{"enum": [],"type":"string"},
-                "target_id":{"type":"integer"}
+                "target_id":{"type":"integer"},
+                "target_edge":{"enum":["5p","3p","watson","hoogsteen","sugar","5stack","3stack"],"type":"string"}
+                
             },
-            "required": ["source_edge","target_id","target_edge","connection_type"],
+            "required": ["target_id","target_edge"],
+            "additionalProperties": false
+        },
+
+        "connections":{
+            "type":"object",
+            "properties": {
+                "5p":{"$ref": "#/$defs/connection"},
+                "3p":{"$ref": "#/$defs/connection"},
+                "Watson":{"$ref": "#/$defs/connection"},
+                "Hoogsteen":{"$ref": "#/$defs/connection"},
+                "Sugar":{"$ref": "#/$defs/connection"},
+                "5p-stack":{"$ref": "#/$defs/connection"},
+                "3p-stack":{"$ref": "#/$defs/connection"}
+            },
             "additionalProperties": false
         },
         "node":{
             "type":"object",
             "properties": {
                 "id":{"type":"integer"},
-                "name":{"type":"string"},
-                "connections":{"type":"array","items": {"$ref":"#/$defs/connection"},"minItems": 7}
+                "base":{"type":"string"},
+                "connections":{"type":"object","items": {"$ref":"#/$defs/connections"},"minItems": 7},
+                "next chain":{"type":"integer"}
             },
-            "required": ["id","name","connections"],
+            "required": ["id","base","connections"],
             "additionalProperties": false
         },
         "motif":{
