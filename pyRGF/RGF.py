@@ -17,7 +17,7 @@ class interaction:
         pass
     
     def to_dict(self):
-        pass
+        return {"target_id":self.target,"target_edge":self.target_edge}
 
     def __repr__(self):
         return f"{self.target_edge} of {self.target} as {self.interaction_type}"
@@ -60,7 +60,7 @@ class Nucleotide_node(node):
         output = {"id":self.id,"base":self.base,"connections":{}}
         for connection in self.connections:
             if self.connections[connection] is not None:
-                output["connections"][connection] = {"target_id":self.connections[connection].target,"target_edge":self.connections[connection].target_edge}
+                output["connections"][connection] = self.connections[connection].to_dict()
         return output
 
 
@@ -140,7 +140,7 @@ class motif_graph:
     def __init__(self):
         super().__init__()
     
-
+    
 
 class RGF:
     def __init__(self,file=None):
