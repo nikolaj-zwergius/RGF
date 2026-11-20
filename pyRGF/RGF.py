@@ -199,7 +199,7 @@ class RGF:
         self.meta_data["CurrentMaxMotifIndex"] = self.current_max_Motif_index
         validate(data,schema)
         with open(file_name, "w") as f:
-            json.dump(data,f,indent=4)
+            json.dump(data,f,indent=2)
 
     def prepend_to(self,target:RGF):
         pass
