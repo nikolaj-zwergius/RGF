@@ -1,0 +1,18 @@
+{
+    "Metadata": {
+        "FileType": "RGF",
+        "FileVersion": "0.1",
+        "CreationDate": "18-11-2026",
+        "linearized":false,
+        "CurrentMaxMotifIndex":0,
+        "CurrentMaxNodeIndex":3
+    },
+    "Design": {
+        "Strand Graph":[
+            {"id":0,"base":"G","connections":{"3p":{"target_id":1,"target_edge":"5p"},"watson":{"target_id":1,"target_edge":"hoogsteen"}}},
+            {"id":1,"base":"G","connections":{"3p":{"target_id":2,"target_edge":"5p"}}},
+            {"id":2,"base":"G","connections":{"3p":{"target_id":3,"target_edge":"5p"}}},
+            {"id":3,"base":"G","connections":{}}
+]
+}
+}
